@@ -17,7 +17,7 @@ a {
 }
 
 .main {
-  padding: 2vh 2vw;
+  padding: 2vh 0.5vw;
   height: 100vh;
   display: flex;
   justify-content: space-evenly;
@@ -98,8 +98,6 @@ button:hover{
   .main {
     min-height: 100vh;
     flex-direction: column;
-  }
-  .bet-container {
-    height: 70vh;
+    padding: 0.5vh 3vw;
   }
 }
