@@ -2,17 +2,21 @@ import Head from "next/head";
 import { useState } from "react";
 
 export default function Home() {
+  //? State Management for Team A
   const [amount1, setAmount1] = useState(0);
   const [val1, setVal1] = useState("");
   const [buttonAvailable1, setButtonAvailable1] = useState(false);
 
+  //? State Management for Team B
   const [amount2, setAmount2] = useState(0);
   const [val2, setVal2] = useState("");
   const [buttonAvailable2, setButtonAvailable2] = useState(false);
 
+  //? Winner State Management
   const [won, setWon] = useState(-1);
   const [teamWon, setTeamWon] = useState(false);
 
+  //? Input text-box value change handler
   function onVal1Change(e) {
     let value = e.target.value;
 
@@ -23,7 +27,6 @@ export default function Home() {
     setVal1(value != 0 ? Number(value) : "Place Your Bet");
     setButtonAvailable1(value > 0);
   }
-
   function onVal2Change(e) {
     let value = e.target.value;
     if (value < 0) {
@@ -34,6 +37,7 @@ export default function Home() {
     setButtonAvailable2(value > 0);
   }
 
+  //? BET button onClick event handling
   function handleInput1() {
     setAmount1(amount1 + val1);
     setVal1("");
@@ -45,6 +49,7 @@ export default function Home() {
     setButtonAvailable2(false);
   }
 
+  //? Add value on press of enter
   function handleKeypress1(e) {
     if (e.key === "Enter" && buttonAvailable1) {
       handleInput1();
@@ -56,6 +61,7 @@ export default function Home() {
     }
   }
 
+  //? Winner state management
   const setWonState = (num) => {
     setTeamWon(num !== -1);
     setWon(num);
@@ -78,7 +84,6 @@ export default function Home() {
               {amount1}
             </span>
           </h2>
-          {/* <h2 className="heading">Place Your Bet</h2> */}
           <div className="inputContainer">
             <input
               name="amount"
