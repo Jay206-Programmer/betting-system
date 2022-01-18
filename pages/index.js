@@ -10,7 +10,8 @@ export default function Home() {
   const [val2, setVal2] = useState("");
   const [buttonAvailable2, setButtonAvailable2] = useState(false);
 
-  const [won, setWon] = useState(-1)
+  const [won, setWon] = useState(-1);
+  const [teamWon, setTeamWon] = useState(false);
 
   function onVal1Change(e) {
     let value = e.target.value;
@@ -55,6 +56,11 @@ export default function Home() {
     }
   }
 
+  const setWonState = (num) => {
+    setTeamWon(num !== -1);
+    setWon(num);
+  };
+
   return (
     <div>
       <Head>
@@ -64,10 +70,13 @@ export default function Home() {
       </Head>
 
       <div className="main">
-        <div className={`bet-container ${won===0 ? "won" : ""}`}>
-          <h1>Team A { won===0 && "Won"}</h1>
+        <div className={`bet-container ${won === 0 ? "won" : ""}`}>
+          <h1>Team A {won === 0 && "Won"}</h1>
           <h2>
-            Total Amount: <span className={`amount ${won===0 ? "white" : ""}`}>{amount1}</span>
+            Total Amount:{" "}
+            <span className={`amount ${won === 0 ? "white" : ""}`}>
+              {amount1}
+            </span>
           </h2>
           {/* <h2 className="heading">Place Your Bet</h2> */}
           <div className="inputContainer">
@@ -79,17 +88,29 @@ export default function Home() {
               value={val1}
               onChange={onVal1Change}
               onKeyPress={handleKeypress1}
+              disabled={teamWon}
             />
             <button disabled={!buttonAvailable1} onClick={handleInput1}>
               BET
             </button>
           </div>
-          <button className="mt-3" onClick={() => setWon(0)}>Make This Team Win</button>
+          {won === 0 ? (
+            <button className="mt-3" onClick={() => setWonState(-1)}>
+              Revert Win
+            </button>
+          ) : (
+            <button className="mt-3" onClick={() => setWonState(0)}>
+              Make This Team Win
+            </button>
+          )}
         </div>
-        <div className={`bet-container ${won===1 ? "won" : ""}`}>
-          <h1>Team B { won===1 && "Won"}</h1>
+        <div className={`bet-container ${won === 1 ? "won" : ""}`}>
+          <h1>Team B {won === 1 && "Won"}</h1>
           <h2>
-            Total Amount: <span className={`amount ${won===1 ? "white" : ""}`}>{amount2}</span>
+            Total Amount:{" "}
+            <span className={`amount ${won === 1 ? "white" : ""}`}>
+              {amount2}
+            </span>
           </h2>
           {/* <h2 className="heading">Place Your Bet</h2> */}
           <div className="inputContainer">
@@ -101,12 +122,21 @@ export default function Home() {
               value={val2}
               onChange={onVal2Change}
               onKeyPress={handleKeypress2}
+              disabled={teamWon}
             />
             <button disabled={!buttonAvailable2} onClick={handleInput2}>
               BET
             </button>
           </div>
-          <button className="mt-3" onClick={() => setWon(1)}>Make This Team Win</button>
+          {won === 1 ? (
+            <button className="mt-3" onClick={() => setWonState(-1)}>
+              Revert Win
+            </button>
+          ) : (
+            <button className="mt-3" onClick={() => setWonState(1)}>
+              Make This Team Win
+            </button>
+          )}
         </div>
       </div>
     </div>
